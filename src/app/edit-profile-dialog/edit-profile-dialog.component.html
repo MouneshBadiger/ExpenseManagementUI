@@ -1,0 +1,14 @@
+<div style="width:100%;text-align: center">
+  <div mat-dialog-content>
+   
+     <div  *ngIf="photoUrl!=null"><img (click)="openEditProfileDialog()" class="profile-image" src="{{photoUrl}}" onerror="this.src='assets/user.png'"></div>
+    </div>
+    <div  style="color: darkblue;"><h3>{{username}}</h3></div>
+  <div mat-dialog-actions style="display: inline;">
+    <button mat-flat-button color="warn" mat-dialog-close="Yes" cdkFocusInitial>{{buttonName}}</button>
+  </div>
+  <div mat-dialog-actions style="display: inline;padding-left: 10px;">
+    <button mat-flat-button color="warn" mat-dialog-close="Close" cdkFocusInitial>Close</button>
+  </div>
+
+</div>

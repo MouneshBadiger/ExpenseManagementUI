@@ -1,0 +1,43 @@
+<div class="dashboard" >
+  <mat-card class="subscriber-details mat-card-1">
+        <mat-card-header style="text-align: center;display: inline" >
+          <mat-card-title style="color: #0000A0;font-size: medium">Claim Dashboard </mat-card-title>
+        </mat-card-header> 
+        <div style="text-align: center;padding:10px" id="msg_box">
+            <div *ngIf="!showSpinner && isExpired" ><img src="assets/expired.png" width="150px;"></div>
+            <div style="color: green">{{successMsg}}</div>
+            <div style="color: red">{{errorMsg}}</div>
+         </div>
+       
+        <mat-card-actions class="mat-card-actions1"  >
+          <div>
+              <button  mat-flat-button color="primary"  (click)="registerNewClaimNav()"  type="button">Register Claim</button>
+              
+         </div>
+         <div><button   mat-flat-button color="primary"  (click)="approveClaimNav()"  type="button">Approve Claim</button></div>
+        
+         
+      </mat-card-actions>
+      <div>
+        <br><br><br>
+      </div>
+     
+      <div>
+        <mat-form-field>
+            <mat-select placeholder="Select Claim"  [(ngModel)]="registerdClaim" #registerdClaimId="ngModel" required>
+              <mat-option *ngFor="let claim of regClaims" [value]="claim.id">
+                {{claim.claimName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+      <mat-card-actions class="mat-card-actions1">
+         <div >
+            <button mat-flat-button color="primary"  (click)="addNewExpenseToClaimNav()"  type="button">Add new Expense</button>
+         </div>
+      </mat-card-actions>
+     
+  </mat-card>
+      
+</div>
+

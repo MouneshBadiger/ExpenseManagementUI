@@ -1,0 +1,91 @@
+.example-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.mat-toolbar.mat-primary {
+  background: darkblue;
+}
+.example-is-mobile .example-toolbar {
+  position: fixed;
+  /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+  z-index: 2;
+}
+
+.example-app-name {
+  margin-left: 8px;
+}
+
+.example-sidenav-container {
+  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+     causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+  flex: 1;
+}
+
+.example-is-mobile .example-sidenav-container {
+  /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+     `<body>` to be our scrolling element for mobile layouts. */
+  flex: 1 0 auto;
+}
+.nav-menu-style{
+  background-image: linear-gradient(to bottom right, rgba(0, 17, 255, 0.897), rgb(34, 229, 243));
+}
+.nav-labels{
+  color: white;
+  border-bottom-color: white;
+  border-bottom-style: none
+}
+.side-nav-content-css{
+  background-image: linear-gradient(to bottom right,rgb(34, 229, 243), rgb(65, 34, 243));
+}
+.profile-image {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+.pImageCss {
+  display: grid;
+}
+.usernameCss {
+  display: none;
+}
+.progress-bar-row{
+  height: 5px;
+}
+.logo-img{
+  padding-left: 10px;
+}
+//added for testing android
+/* .sidenav-menu-container{
+  display: none;
+}
+.example-toolbar{
+  display: none;
+} */
+
+@media(min-width:768px){
+  /* laptop specific design */
+  .profile-image {
+    margin-top: 20px;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+  }
+
+  .example-toolbar{
+    height: 80px;
+  }
+  .pImageCss {
+    display: bloc;
+  }
+  .usernameCss {
+    display: block;
+  }
+  .progress-bar-row{
+    height: 55px;
+  }
+}

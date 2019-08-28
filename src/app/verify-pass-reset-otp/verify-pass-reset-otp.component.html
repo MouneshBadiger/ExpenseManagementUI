@@ -1,0 +1,27 @@
+<div class="login-container">
+  <div align="center" style="color: red;font-weight: bold">{{errorMsg}}</div>
+  <div align="center" style="color: green;font-weight: bold">{{successMsg}}</div>
+<mat-card align="center">
+<mat-card-header >
+    <mat-card-title>Vefiy OTP</mat-card-title>
+    <mat-card-subtitle>Please enter the OTP you have received.</mat-card-subtitle>
+  </mat-card-header>
+<!--  <form> -->
+<div >
+  <mat-form-field style="width:60%" >
+     <input  type="number" matInput required  placeholder="Enter the OTP" [(ngModel)]="otp" #otpId="ngModel">
+ </mat-form-field>
+</div>
+
+<div align="center" *ngIf="showSpinner"> 
+    <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="!showSpinner">
+  <div    style="padding: 5px">
+    <button mat-flat-button color="primary" [disabled]="!otpId.valid"  type="button" (click)="onVerifySubmit()">Verify</button>
+  </div>
+</div>
+
+<!--  </form> -->
+</mat-card>
+</div>

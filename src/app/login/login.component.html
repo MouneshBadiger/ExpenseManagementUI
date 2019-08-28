@@ -1,0 +1,46 @@
+<div class="login-container">
+  <div align="center" style="color: green;font-weight: bold">{{successMsg}}</div>
+<mat-card align="center">
+    <mat-card-header >
+        <mat-card-title>Login</mat-card-title>
+        <mat-card-subtitle>Login with your username and password</mat-card-subtitle>
+      </mat-card-header>
+      <div class="text-danger">{{errorMsg}}</div>
+ <!--  <form> -->
+    <div >
+      <mat-form-field style="width:100%" >
+         <input  type="text" matInput required placeholder="Enter your email" [(ngModel)]="username" #usernameRef="ngModel">
+     </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field style="width:100%">
+         <input type="password" matInput required minlength="6" placeholder="Enter your password" [(ngModel)]="password" #passwordRef="ngModel">
+    </mat-form-field>
+    </div>
+    <div align="center" *ngIf="showSpinner"> 
+        <mat-spinner [diameter]="50" [strokeWidth]="4"></mat-spinner>
+    </div>
+    <div *ngIf="!showSpinner">
+      <div  *ngIf="username!=null || username!=''"  style="padding: 5px">
+        <button mat-flat-button color="primary"   type="button" (click)="onSubmit()">Login</button>
+      </div>
+      <div style="padding: 5px">
+        <button mat-flat-button color="primary"  type="button" (click)="gotoForgotPass()">Forgot Password</button>
+      </div>
+      <div style="padding: 5px">
+        <button mat-flat-button color="primary"  type="button" (click)="gotoRegister()">Register</button>
+      </div>
+
+
+
+      <!-- <div style="padding: 5px">
+          <button mat-flat-button color="primary" type="button" (click)="signInWithFB()">Login with Facebook</button>
+        </div>
+      <div style="padding: 5px">
+        <button mat-flat-button color="primary" type="button" (click)="signInWithGoogle()">Login with Google</button>
+      </div> -->
+  </div>
+    
+ <!--  </form> -->
+</mat-card>
+</div>

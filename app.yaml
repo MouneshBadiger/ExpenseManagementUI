@@ -1,0 +1,12 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+handlers:
+ # images, css, js, etc
+ - url: /(.*\.(ico|css|js|gif|png|jpg|jpeg))$
+   static_files: dist/SmartAngApp/\1
+   upload: dist/SmartAngApp/.*\.(ico|css|js|gif|png|jpg|jpeg)$
+ # all other links load index.html
+ - url: .*
+   static_files: dist/SmartAngApp/index.html
+   upload: dist/SmartAngApp/.*

@@ -1,0 +1,26 @@
+<div class="login-container">
+  <div align="center" style="color: red;font-weight: bold">{{errorMsg}}</div>
+  <div align="center" style="color: green;font-weight: bold">{{successMsg}}</div>
+
+<mat-card align="center" *ngIf="successMsg==null">
+<mat-card-header >
+    <mat-card-title>Reset Passwrod</mat-card-title>
+    <mat-card-subtitle>Please enter your registered mobile number to get an OTP</mat-card-subtitle>
+  </mat-card-header>
+<div >
+  <mat-form-field style="width:60%" >
+     <input  type="tel" matInput  minlength=10 maxlength=10 (keypress)="keyPress($event)"  required  placeholder="Mobile Number" [(ngModel)]="mobileNo" #mobileNoRef="ngModel">
+ </mat-form-field>
+</div>
+
+<div align="center" *ngIf="showSpinner"> 
+    <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="!showSpinner">
+  <div    style="padding: 5px">
+    <button mat-flat-button color="primary" [disabled]="!mobileNoRef.valid"  type="button" (click)="sendOTPRequest()">Get OTP</button>
+  </div>
+</div>
+
+</mat-card>
+</div>

@@ -1,0 +1,33 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+/* global css file */
+body { 
+  margin: 0;
+}
+
+.basic-container {
+  padding: 30px;
+}
+
+.version-info {
+  font-size: 8pt;
+  float: right;
+}
+.text-danger{
+  color: red;
+}
+.mat-expansion-panel{
+  background-color: wheat;
+}
+.mat-card-1{
+  background-image:  radial-gradient(to bottom right,white, rgb(230, 237, 238));
+ 
+}
+.mat-card-11{
+  background-color:white;
+}
+.mat-card-2{
+  background-image: linear-gradient(to right bottom , white, rgb(131, 18, 18));
+}
+.mat-card-3{
+  background-image: linear-gradient(to bottom right,white, rgb(230, 237, 238));
+}

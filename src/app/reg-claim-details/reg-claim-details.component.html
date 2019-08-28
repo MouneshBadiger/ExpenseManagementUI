@@ -1,0 +1,54 @@
+
+<div class="text-danger" align="center">{{errorMsg}}</div>
+<mat-card class="reg-card">
+    <div class="reg-tital"><h2>Add Expense Details</h2></div>
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <mat-form-field >
+          <input required matInput  type="text" placeholder="Expense Name"  formControlName="expenseName" class="form-control">
+        </mat-form-field>
+      <div *ngIf="expenseName.invalid && expenseName.touched">
+        <small class="text-danger" *ngIf="expenseName.errors?.required">Expense Name is required</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+        <mat-form-field>
+          <input type="text" minlength=10 maxlength=10 (keypress)="keyPress($event)" matInput placeholder="Desciption"  formControlName="desciption">
+      </mat-form-field>
+      <div *ngIf="desciption.invalid && desciption.touched">
+          <small class="text-danger" *ngIf="desciption.errors?.required">Desciption is required</small>
+      </div>
+    </div>
+
+    <div class="form-group" >
+      <mat-form-field >
+      <input  matInput placeholder="Expense Type"  formControlName="expenseType" class="form-control">
+    </mat-form-field>
+        <small class="text-danger" *ngIf="expenseType.invalid && expenseType.touched && expenseType.errors?.required">Expense Type is required</small>
+    </div>
+
+    <div class="form-group" >
+      <mat-form-field>
+        <mat-label>Payment Type</mat-label>
+        <mat-select placeholder="Payment Mode"  formControlName="paymentMode" class="form-control">
+          <mat-option  >CASH </mat-option>
+          <mat-option  >CARD </mat-option>
+        </mat-select>
+      </mat-form-field>
+        <small class="text-danger" *ngIf="paymentMode.invalid && paymentMode.touched && paymentMode.errors?.required">Payment Mode is required</small>
+    </div>
+   
+
+    <div align="center" *ngIf="showSpinner"> 
+        <mat-spinner color="warn"></mat-spinner>
+    </div>
+    <div *ngIf="!showSpinner ">
+      <button [disabled]="!registrationForm.valid" align="right" *ngIf="subDto==null" mat-flat-button color="primary"  class="btn btn-primary"  type="submit">Add</button>
+      <button [disabled]="!registrationForm.valid" *ngIf="subDto!=null" mat-flat-button color="primary"  class="btn btn-primary"  type="submit">Update</button>
+      <button style="margin-left: 5px; width: 100px"  mat-flat-button color="primary" (click)="back()"    type="button">Back</button>
+    </div>
+    <br>
+  </form>
+</mat-card>
+

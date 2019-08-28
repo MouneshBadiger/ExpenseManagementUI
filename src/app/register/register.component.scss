@@ -1,0 +1,66 @@
+/* mobile-first design */
+.reg-tital{
+ display: flex;
+ justify-content: center;
+}
+.reg-card {
+  width: 100%;
+  order: 2;
+  padding-left: 5px;
+  margin-top: 20px;
+ }
+ .photo-card{
+   width:80%;
+   order: 1;
+   display:flex;
+   justify-content: center;
+   flex-direction: column;
+    align-items: center;
+ }
+.form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  .form-group > * {
+    width: 100%;
+    align-self: center;
+  }
+  
+  .parent-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   }
+  .profile-image {
+      border-radius: 50%;
+      width: 200px;
+      height: 200px;
+     
+  }
+@media(min-width:768px){
+  /* laptop specific design */
+  .parent-card {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+   }
+   .reg-card {
+    width: 50%;
+    order: 2;
+   }
+   .photo-card{
+     width:25%;
+     height: 350px;
+     order: 1;
+     flex-direction: column;
+     align-items: center;
+     
+
+   }
+}
+
+
+ 
+  

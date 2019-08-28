@@ -1,0 +1,59 @@
+
+<div class="text-danger" align="center">{{errorMsg}}</div>
+    <mat-card class="reg-card">
+        <div class="reg-tital"><h2>Register Claim</h2></div>
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <mat-form-field >
+              <input required matInput  type="text" placeholder="Claim Name"  formControlName="claimName" class="form-control">
+            </mat-form-field>
+          <div *ngIf="claimName.invalid && claimName.touched">
+            <small class="text-danger" *ngIf="claimName.errors?.required">Claim Name is required</small>
+          </div>
+        </div>
+        <div class="form-group">
+            <mat-form-field>
+              <input type="text" minlength=10 maxlength=10 (keypress)="keyPress($event)" matInput placeholder="Project Id"  formControlName="projectId">
+          </mat-form-field>
+          <div *ngIf="projectId.invalid && projectId.touched">
+              <small class="text-danger" *ngIf="projectId.errors?.required">projectId is required</small>
+              <small class="text-danger" *ngIf="projectId.errors?.minlength">projectId is required</small>
+          </div>
+        </div>
+
+        <div class="form-group" >
+          <mat-form-field >
+          <input  matInput placeholder="ApprovarI d" type="approvarId" formControlName="approvarId" class="form-control">
+        </mat-form-field>
+            <small class="text-danger" *ngIf="approvarId.invalid && approvarId.touched && approvarId.errors?.required">Approvar Id is required</small>
+        </div>
+
+        <div class="form-group">
+            <mat-form-field>
+                <input (keypress)="disTyping($event)"  matInput [matDatepicker]="dp3" placeholder="Start Date "  formControlName="startDate">
+                <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+              </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+              <input (keypress)="disTyping($event)"  matInput [matDatepicker]="dp4" placeholder="End Date "  formControlName="endDate">
+              <mat-datepicker-toggle matSuffix [for]="dp4"></mat-datepicker-toggle>
+              <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+            </mat-form-field>
+      </div>
+
+        <div align="center" *ngIf="showSpinner"> 
+            <mat-spinner color="warn"></mat-spinner>
+        </div>
+        <div *ngIf="!showSpinner ">
+          <button [disabled]="!registrationForm.valid" align="right" *ngIf="subDto==null" mat-flat-button color="primary"  class="btn btn-primary"  type="submit">Register</button>
+          <button [disabled]="!registrationForm.valid" *ngIf="subDto!=null" mat-flat-button color="primary"  class="btn btn-primary"  type="submit">Update</button>
+          <button style="margin-left: 5px; width: 100px"  mat-flat-button color="primary" (click)="back()"    type="button">Back</button>
+        </div>
+        <br>
+      </form>
+    </mat-card>
+  <!-- {{registrationForm.status | json}}
+  {{registrationForm.value | json}} -->
+
