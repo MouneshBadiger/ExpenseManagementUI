@@ -5,35 +5,35 @@
   <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
         <mat-form-field >
-          <input required matInput  type="text" placeholder="Expense Name"  formControlName="expenseName" class="form-control">
+          <input required matInput  type="text" placeholder="Expense Name"  formControlName="expenseDetailName" class="form-control">
         </mat-form-field>
-      <div *ngIf="expenseName.invalid && expenseName.touched">
-        <small class="text-danger" *ngIf="expenseName.errors?.required">Expense Name is required</small>
+      <div *ngIf="expenseDetailName.invalid && expenseDetailName.touched">
+        <small class="text-danger" *ngIf="expenseDetailName.errors?.required">Expense Name is required</small>
       </div>
     </div>
 
     <div class="form-group">
         <mat-form-field>
-          <input type="text" minlength=10 maxlength=10 (keypress)="keyPress($event)" matInput placeholder="Desciption"  formControlName="desciption">
+          <input type="text"  matInput placeholder="description"  formControlName="description">
       </mat-form-field>
-      <div *ngIf="desciption.invalid && desciption.touched">
-          <small class="text-danger" *ngIf="desciption.errors?.required">Desciption is required</small>
+      <div *ngIf="description.invalid && description.touched">
+          <small class="text-danger" *ngIf="description.errors?.required">description is required</small>
       </div>
     </div>
 
     <div class="form-group" >
       <mat-form-field >
-      <input  matInput placeholder="Expense Type"  formControlName="expenseType" class="form-control">
+      <input  matInput placeholder="Expense Type"  formControlName="typeOfExpense" class="form-control">
     </mat-form-field>
-        <small class="text-danger" *ngIf="expenseType.invalid && expenseType.touched && expenseType.errors?.required">Expense Type is required</small>
+        <small class="text-danger" *ngIf="typeOfExpense.invalid && typeOfExpense.touched && typeOfExpense.errors?.required">Expense Type is required</small>
     </div>
 
     <div class="form-group" >
       <mat-form-field>
         <mat-label>Payment Type</mat-label>
-        <mat-select placeholder="Payment Mode"  formControlName="paymentMode" class="form-control">
-          <mat-option  >CASH </mat-option>
-          <mat-option  >CARD </mat-option>
+        <mat-select placeholder="Payment Mode" formControlName="paymentMode" class="form-control">
+          <mat-option [value]="CASH" >CASH </mat-option>
+          <mat-option  [value]="CARD"  >CARD </mat-option>
         </mat-select>
       </mat-form-field>
         <small class="text-danger" *ngIf="paymentMode.invalid && paymentMode.touched && paymentMode.errors?.required">Payment Mode is required</small>

@@ -13,7 +13,7 @@
     
       <div>
         <mat-form-field>
-          <mat-select placeholder="Select Claim"  [(ngModel)]="registerdClaim" #registerdClaimId="ngModel" required>
+          <mat-select placeholder="Select Claim"  [(ngModel)]="selectedClaimId" #selectedClaimIdRef="ngModel" required>
             <mat-option *ngFor="let claim of regClaims" [value]="claim.id">
               {{claim.claimName}}
             </mat-option>

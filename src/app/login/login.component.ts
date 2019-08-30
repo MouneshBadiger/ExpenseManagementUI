@@ -56,10 +56,15 @@ export class LoginComponent implements OnDestroy {
       this.cableService.login(this.username,this.password)
         .subscribe( 
           response => {
-            let access_token=response.headers.get('access_token');
-            localStorage.setItem('access_token', access_token);
-            localStorage.setItem("user_id",response.id);
-            this.router.navigate(['/claimDashboard']);
+              if(response.status==200){
+                console.log(response.headers)
+                localStorage.setItem('access_token', response.headers.get('access_token'));
+                localStorage.setItem('username', response.body.userName);
+                localStorage.setItem("user_id",response.body.id);
+                this.router.navigate(['/claimDashboard'],{queryParams:{successMsg:'Login successfull'}});
+              }else{
+                this.errorMsg="Unable to Login";
+              }
           },
           error => {
             console.error('Erroru=', error)

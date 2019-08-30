@@ -1,11 +1,11 @@
 <div  class="example-container" [class.example-is-mobile]="mobileQuery.matches" *ngIf="shouldRun">
-    <mat-toolbar *ngIf="isWebview==false"  color="primary" class="example-toolbar">
+    <mat-toolbar  color="primary" class="example-toolbar">
       <mat-toolbar-row>
           <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
           <div class="example-app-name">Expense Mangement System</div>
           <!-- <div class="logo-img"><img height="50px" width="50px" src="assets/doveW.png"></div> -->
            <div align="right" style="padding-left: 10px;flex: 8" class="usernameCss">{{username}}</div>
-          <div align="right" style="padding-left: 10px;" ><img width="150px" height="60px" src='assets/ibm.png'></div>
+          <div align="right" style="padding-left: 10px;" ><img width="150px" height="80px" src='assets/ibm.png'></div>
         </mat-toolbar-row>
 
         <!-- <mat-toolbar-row  class="progress-bar-row">

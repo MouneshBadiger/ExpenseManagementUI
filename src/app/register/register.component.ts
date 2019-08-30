@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.registrationForm = this.fb.group({
-      id: [''],
+      id: [null],
       userName: ['', [Validators.required, Validators.minLength(3), ForbiddenNameValidator(/password/)]],
       password: ['',[Validators.required, Validators.minLength(6)]],
       confirmPassword: ['',[Validators.required, Validators.minLength(6)]],
@@ -66,13 +66,14 @@ export class RegisterComponent implements OnInit {
       this.mainNav.loading=true;
       this.cableService.getUserData(this.userId).subscribe(
          resp=>{
+           console.log(resp.headers.get("message"));
           this.registrationForm.patchValue({
-            id: resp.id,
-            userName: resp.userName,
-            password: resp.password,
-            confirmPassword: resp.confirmPassword,
-            emailId: resp.emailId,
-            mobileNo: resp.mobileNo,
+            id: resp.body.id,
+            userName: resp.body.userName,
+            password: resp.body.password,
+            confirmPassword: resp.body.confirmPassword,
+            emailId: resp.body.emailId,
+            mobileNo: resp.body.mobileNo,
           });
           this.mainNav.loading=false;
        },
@@ -88,21 +89,18 @@ export class RegisterComponent implements OnInit {
     if(this.validateFormData()){
       console.log(JSON.stringify(this.registrationForm.value));
       this.showSpinner=true;
-    /*   var fd = new FormData();
-      fd.append("data",JSON.stringify(this.registrationForm.value)) */
       this.cableService.registerOrUpdateUser(this.registrationForm.value)
       .subscribe(
         response => {
           this.showSpinner=false;
-          
-          if(response.headers.get('Status Code')==201){
-            let access_token=response.headers.get('access_token');
-            localStorage.setItem('access_token', access_token);
-            localStorage.setItem("user_id",response.id);
-            this.router.navigate(['/claimDashboard']);
+          if(response.status==200){
+            localStorage.setItem('access_token', response.headers.get('access_token'));
+            localStorage.setItem('username', response.body.userName);
+            localStorage.setItem("user_id",response.body.id);
+            this.router.navigate(['/claimDashboard'],{queryParams:{successMsg:'Registration completed successfully'}});
          
           }else{
-            this.genError=response.statusMessage;
+            this.genError=response.headers.get('message');
           }
         },
         error =>{

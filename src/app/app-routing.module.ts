@@ -24,11 +24,11 @@ const routes: Routes = [
   { path: 'register',   component: RegisterComponent },
   { path: 'login',   component: LoginComponent },
   { path: 'logout',   component: LogoutComponent,canActivate:[AuthGuard] },
-  { path: 'regClaim',   component: RegClaimComponent },
-  { path: 'addExpenseDetails',   component: RegClaimDetailsComponent },
-  { path: 'claimDashboard',   component: ClaimDashboardComponent },
-  { path: 'approveClaim',   component: ApproveClaimComponent },
-  { path: 'report',   component: ReportComponent },
+  { path: 'regClaim',   component: RegClaimComponent,canActivate:[AuthGuard]  },
+  { path: 'addExpenseDetails',   component: RegClaimDetailsComponent,canActivate:[AuthGuard]  },
+  { path: 'claimDashboard',   component: ClaimDashboardComponent ,canActivate:[AuthGuard] },
+  { path: 'approveClaim',   component: ApproveClaimComponent,canActivate:[AuthGuard]  },
+  { path: 'report',   component: ReportComponent ,canActivate:[AuthGuard] },
   { path: 'genError',  component:GenericErrorComponent},
   /* this line should be last */
   { path: '**',   component: PageNotFoundComponent }

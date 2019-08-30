@@ -15,18 +15,26 @@ export class RegClaimDetailsComponent implements OnInit {
   registrationForm: FormGroup;
   subDto;
   showSpinner:boolean;
+  expenseClaimId;
   constructor(private fb: FormBuilder,private cableService:CableService,
     private router: Router,private route: ActivatedRoute,
     private mainNav: MainNavComponent) { }
 
   ngOnInit() {
+
+    this.route.queryParamMap.subscribe(params => {
+      this.expenseClaimId=params.get('expenseClaimId');
+     
+    });
    
     this.registrationForm = this.fb.group({
       id: [''],
-      expenseName: ['', [Validators.required]],
-      desciption: ['',[Validators.required]],
-      expenseType: ['',[Validators.required]],
-      paymentMode:['',[Validators.required]],
+      expenseDetailName: ['', [Validators.required]],
+      description: ['',[Validators.required]],
+      typeOfExpense: ['',[Validators.required]],
+      paymentMode:[''],
+      expenseClaimId:[{id: this.expenseClaimId}],
+      userId:[{id:localStorage.getItem("user_id")}]
     });
   
     
@@ -35,43 +43,27 @@ export class RegClaimDetailsComponent implements OnInit {
   get id() {
     return this.registrationForm.get('id');
   }
-  get expenseName() {
-    return this.registrationForm.get('expenseName');
+  get expenseDetailName() {
+    return this.registrationForm.get('expenseDetailName');
   }
 
-  get desciption() {
-    return this.registrationForm.get('desciption');
+  get description() {
+    return this.registrationForm.get('description');
   }
-  get expenseType() {
-    return this.registrationForm.get('expenseType');
+  get typeOfExpense() {
+    return this.registrationForm.get('typeOfExpense');
   }
   get paymentMode(){
     return this.registrationForm.get('paymentMode');
   }
-  getSubscriberDataEdit() {
-    this.registrationForm.patchValue({
-      id: this.subDto.id,
-      subscriberName: this.subDto.subscriberName,
-      contactNo: this.subDto.contactNo,
-      stbId: this.subDto.stbId,
-      subscribedDate : new Date(this.subDto.subscribedDate),
-      vcNumber:this.subDto.vcNumber,
-      stbModel:this.subDto.stbModel,
-      adarCardNo:this.subDto.adarCardNo,
-      address: this.subDto.address,
-    });
-  }
-
+  
   onSubmit() {
     this.errorMsg=null;
     this.showSpinner=true;
-    this.cableService.registerOrUpdateUser(this.registrationForm.value).subscribe(
+    this.cableService.addExpenseClaim(this.registrationForm.value).subscribe(
         resp=>{
-          if(resp.statusCode==2000){
-            this.router.navigate(['/opertorDashboard'],{queryParams:{successMsg:'Subscriber added/updated successfully'}});
-          }else{
-            this.errorMsg=resp.statusMessage;
-          }
+            this.router.navigate(['/claimDashboard'],{queryParams:{successMsg:'Claim Details added/updated successfully'}});
+         
           this.showSpinner=false;
         },
         error=>{

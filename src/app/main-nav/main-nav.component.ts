@@ -59,11 +59,7 @@ export class MainNavComponent implements OnDestroy {
     this.isSosLogin=localStorage.getItem('isSosLogin');
     let isWebview=localStorage.getItem('isWebview');
    
-    if(isWebview=='true'){
-      this.isWebview=true;
-    }else {
-      this.isWebview=false;
-    }
+  
     let rolesAr= JSON.parse(localStorage.getItem('userRoles'));
     if(rolesAr!=null){
       rolesAr.forEach(element => {
@@ -83,6 +79,8 @@ export class MainNavComponent implements OnDestroy {
 
   logout(){
     localStorage.clear();
+    this.router.navigate(['/login']);
+    window.location.reload();
   }
   customLogout(){
     localStorage.clear();

@@ -34,7 +34,7 @@ export class SmartConstantsService {
  
   
   hostUrl="http://localhost:4200/";
-  reportServiceUurl:string="http://localhost:8082";
+  reportServiceUrl:string="http://localhost:8082";
   expenseServiceUrl:string="http://localhost:8081";
  
   constructor() { }
