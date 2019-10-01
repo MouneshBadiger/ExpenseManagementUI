@@ -1,6 +1,8 @@
 
-<div class="text-danger" align="center">{{errorMsg}}</div>
+
 <mat-card class="reg-card">
+    <div style="color: green">{{successMsg}}</div>
+    <div style="color: red">{{errorMsg}}</div>
     <div class="reg-tital"><h2>Add Expense Details</h2></div>
   <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
@@ -20,32 +22,46 @@
           <small class="text-danger" *ngIf="description.errors?.required">description is required</small>
       </div>
     </div>
-
+   
     <div class="form-group" >
-      <mat-form-field >
-      <input  matInput placeholder="Expense Type"  formControlName="typeOfExpense" class="form-control">
-    </mat-form-field>
-        <small class="text-danger" *ngIf="typeOfExpense.invalid && typeOfExpense.touched && typeOfExpense.errors?.required">Expense Type is required</small>
-    </div>
+        <mat-form-field>
+          <mat-label>Type Of Expense</mat-label>
+          <mat-select placeholder="Type Of Expense" formControlName="typeOfExpense" class="form-control">
+            <mat-option value="InterCity commute" >InterCity commute </mat-option>
+            <mat-option  value="Intra-City commute"  >Intra-City commute </mat-option>
+            <mat-option  value="Hotel Stay"  >Hotel Stay </mat-option>
+            <mat-option  value="Breakfast"  >Breakfast </mat-option>
+            <mat-option  value="Meal"  >Meal </mat-option>
+            <mat-option  value="Laundry"  >Laundry </mat-option>
+          </mat-select>
+        </mat-form-field>
+          <small class="text-danger" *ngIf="typeOfExpense.invalid && typeOfExpense.touched && typeOfExpense.errors?.required">Type of Expense required</small>
+      </div>
 
     <div class="form-group" >
       <mat-form-field>
         <mat-label>Payment Type</mat-label>
         <mat-select placeholder="Payment Mode" formControlName="paymentMode" class="form-control">
-          <mat-option [value]="CASH" >CASH </mat-option>
-          <mat-option  [value]="CARD"  >CARD </mat-option>
+          <mat-option value="CASH" >CASH </mat-option>
+          <mat-option  value="CARD"  >CARD </mat-option>
         </mat-select>
       </mat-form-field>
         <small class="text-danger" *ngIf="paymentMode.invalid && paymentMode.touched && paymentMode.errors?.required">Payment Mode is required</small>
     </div>
-   
+    <div class="form-group">
+        <mat-form-field>
+          <input type="text"  matInput placeholder="Amount" (keypress)="keyPress($event)"  formControlName="expenseAmount">
+      </mat-form-field>
+      <div *ngIf="expenseAmount.invalid && expenseAmount.touched">
+          <small class="text-danger" *ngIf="expenseAmount.errors?.required">Expense Amount is required</small>
+      </div>
+    </div>
 
     <div align="center" *ngIf="showSpinner"> 
         <mat-spinner color="warn"></mat-spinner>
     </div>
     <div *ngIf="!showSpinner ">
-      <button [disabled]="!registrationForm.valid" align="right" *ngIf="subDto==null" mat-flat-button color="primary"  class="btn btn-primary"  type="submit">Add</button>
-      <button [disabled]="!registrationForm.valid" *ngIf="subDto!=null" mat-flat-button color="primary"  class="btn btn-primary"  type="submit">Update</button>
+      <button [disabled]="!registrationForm.valid" align="right" mat-flat-button color="primary"   type="submit">Validate & Save</button>
       <button style="margin-left: 5px; width: 100px"  mat-flat-button color="primary" (click)="back()"    type="button">Back</button>
     </div>
     <br>

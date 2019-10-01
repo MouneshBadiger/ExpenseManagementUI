@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,13 @@ export class SmartConstantsService {
   profileChanged:boolean=false;
   defPic="assets/user.png";
   monthsArr=["January","February","March","April","May","June","July","August","September","October","Novermber","December"];
+  
+  private userName = new BehaviorSubject(null);
+  currentUserName = this.userName.asObservable();
 
+  changeUserName(message: string) {
+    this.userName.next(message)
+  }
   formatDateDDMMMYYYY(date:Date){
     let dateStr=date.getDate()+"-"+this.monthsArr[date.getMonth()]+"-"+date.getFullYear();
     return dateStr;

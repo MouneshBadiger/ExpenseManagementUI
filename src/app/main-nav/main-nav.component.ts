@@ -53,7 +53,12 @@ export class MainNavComponent implements OnDestroy {
   }
   ngOnInit() {
     this.appName=this.smartConstants.appName;
-    this.username=localStorage.getItem('username');
+    this.smartConstants.currentUserName.subscribe(usrN => this.username = usrN);
+    if(localStorage.getItem('username')!=null){
+      this.username=localStorage.getItem('username');
+      this.smartConstants.changeUserName( this.username);
+    }
+   
     this.photoUrl=localStorage.getItem('photoUrl');
     this.userId=localStorage.getItem('userId');
     this.isSosLogin=localStorage.getItem('isSosLogin');
@@ -84,13 +89,9 @@ export class MainNavComponent implements OnDestroy {
   }
   customLogout(){
     localStorage.clear();
-    //this.authService.signOut();
+    this.smartConstants.changeUserName(null);
     this.username=null;
-    this.photoUrl=null;
-    window.location.reload();
-    if(this.isWebview){
-      window.location.href = "http://androidlogout";
-    }
+    
   }
   checkTokenExpAndLogout(errorResp){
     if(errorResp!=null && errorResp.error!=null && errorResp.error.error=='invalid_token'){

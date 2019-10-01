@@ -3,24 +3,21 @@ import { Injectable } from '@angular/core';
 import { SmartConstantsService } from '../smart-constants.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MainNavComponent } from 'src/app/main-nav/main-nav.component';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CableService {
 
-  constructor(private _http: HttpClient,
-    private smart_consts: SmartConstantsService) { }
+  
 
+  constructor(private _http: HttpClient, private smart_consts: SmartConstantsService) { }
+      
         getTokenHeader(){
          
           return { headers: new HttpHeaders().set('access_token', localStorage.getItem("access_token"))}
           
-        }
-        getOptions(){
-          return {
-            headers: { headers: new HttpHeaders().set('Content-Type', "application/json").set('Accept','application/json')}
-           };
         }
         login(username,password) {
             const httpOptions = {
@@ -32,8 +29,10 @@ export class CableService {
         } 
         registerOrUpdateUser(user){
           let _url=this.smart_consts.expenseServiceUrl+'/user';
-          
-            return this._http.post<any>(_url, user);
+          const httpOptions = {
+            observe: 'response' as 'response'
+          };
+            return this._http.post<any>(_url, user,httpOptions);
         }
         getUserData(userId){
           const httpOptions = {
@@ -77,12 +76,6 @@ export class CableService {
         }
         
 
-
-
-
-
-
-
         registerNewClaim(claim){
           const httpOptions = {
             observe: 'response' as 'response'
@@ -91,15 +84,7 @@ export class CableService {
           let _url=this.smart_consts.expenseServiceUrl+'/expenseClaim';
           return this._http.post<any>(_url,claim,httpOptions);
         }
-        addExpenseClaim(claimDetails){
-          const httpOptions = {
-            observe: 'response' as 'response'
-          };
-          //let userId=localStorage.getItem("user_id");
-          let _url=this.smart_consts.expenseServiceUrl+'/expenseClaimDetails';
-          return this._http.post<any>(_url,claimDetails,httpOptions);
-        }
-
+       
       
         approveClaimManager(claimId){
           const httpOptions = {
@@ -116,6 +101,14 @@ export class CableService {
          // let userId=localStorage.getItem("user_id");
           let _url=this.smart_consts.expenseServiceUrl+'/expenseClaim/reject/'+claimId;
           return this._http.get(_url,httpOptions);
+        }
+        
+        addNewClaim(claimDetails){
+          let _url=this.smart_consts.expenseServiceUrl+'/expenseClaimDetails';
+          const httpOptions = {
+            observe: 'response' as 'response'
+          };
+            return this._http.post<any>(_url, claimDetails,httpOptions);
         }
 
         

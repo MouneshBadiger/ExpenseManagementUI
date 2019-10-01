@@ -29,7 +29,7 @@ export class ReportComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.getRegistrationReport();
+    this.getApprvalPendingReport();
   }
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -41,28 +41,35 @@ export class ReportComponent implements OnInit {
   onCancel(){
     this.router.navigate(['/loggedInHome']);
   }
-  onChannelPackChange(){
+  onReportChange(){
     if(this.selType=='1'){
-      this.getRegistrationReport();
+      this.getApprvalPendingReport();
+    }if(this.selType=='2'){
+      this.getApprovedReport();
     }else{
       this.getApprovalReport();
     }
   }
-  getRegistrationReport(){
-   /*  let claimList=[
-      {id:"12",claimName:"aaa",projectID:"sdads",travelStartDate:"dsfsd",travelEndDate:"dfsdf",userId:{userName:"sdfsdf"}},
-      {id:"12",claimName:"aaa",projectID:"sdads",travelStartDate:"dsfsd",travelEndDate:"dfsdf",userId:{userName:"sdfsdf"}},
-      {id:"12",claimName:"aaa",projectID:"sdads",travelStartDate:"dsfsd",travelEndDate:"dfsdf",userId:{userName:"sdfsdf"}},
-      {id:"12",claimName:"aaa",projectID:"sdads",travelStartDate:"dsfsd",travelEndDate:"dfsdf",userId:{userName:"sdfsdf"}},
-      {id:"12",claimName:"aaa",projectID:"sdads",travelStartDate:"dsfsd",travelEndDate:"dfsdf",userId:{userName:"sdfsdf"}},
-      {id:"12",claimName:"aaa",projectID:"sdads",travelStartDate:"dsfsd",travelEndDate:"dfsdf",userId:{userName:"sdfsdf"}},
-      {id:"12",claimName:"aaa",projectID:"sdads",travelStartDate:"dsfsd",travelEndDate:"dfsdf",userId:{userName:"sdfsdf"}},
-      {id:"12",claimName:"aaa",projectID:"sdads",travelStartDate:"dsfsd",travelEndDate:"dfsdf",userId:{userName:"sdfsdf"}},
-      {id:"12",claimName:"aaa",projectID:"sdads",travelStartDate:"dsfsd",travelEndDate:"dfsdf",userId:{userName:"sdfsdf"}},
-    ]
-    this.dataSource = new MatTableDataSource(claimList);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort; */
+  getApprvalPendingReport(){
+    let userId=localStorage.getItem("user_id");
+    this.cableService.expenseClaimRegistered(userId).subscribe(
+      resp=>{
+          let claimList=resp.body;
+          this.dataSource = new MatTableDataSource(claimList);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        
+        this.showSpinner=false;
+      },
+      error=>{
+        this.errorMsg="Oops!,Unexpected Error"
+        this.showSpinner=false;
+        this.mainNav.checkTokenExpAndLogout(error);
+      }
+    )
+  }
+  getApprovedReport(){
+  
     let userId=localStorage.getItem("user_id");
     this.cableService.expenseClaimApproved(userId).subscribe(
       resp=>{

@@ -12,6 +12,7 @@ import { MainNavComponent } from '../main-nav/main-nav.component';
 export class RegClaimDetailsComponent implements OnInit {
 
   errorMsg:string;
+  successMsg:string;
   registrationForm: FormGroup;
   subDto;
   showSpinner:boolean;
@@ -28,11 +29,11 @@ export class RegClaimDetailsComponent implements OnInit {
     });
    
     this.registrationForm = this.fb.group({
-      id: [''],
       expenseDetailName: ['', [Validators.required]],
       description: ['',[Validators.required]],
       typeOfExpense: ['',[Validators.required]],
       paymentMode:[''],
+      expenseAmount:[0],
       expenseClaimId:[{id: this.expenseClaimId}],
       userId:[{id:localStorage.getItem("user_id")}]
     });
@@ -56,22 +57,24 @@ export class RegClaimDetailsComponent implements OnInit {
   get paymentMode(){
     return this.registrationForm.get('paymentMode');
   }
+  get expenseAmount(){
+    return this.registrationForm.get('expenseAmount');
+  }
+  
   
   onSubmit() {
-    this.errorMsg=null;
-    this.showSpinner=true;
-    this.cableService.addExpenseClaim(this.registrationForm.value).subscribe(
-        resp=>{
-            this.router.navigate(['/claimDashboard'],{queryParams:{successMsg:'Claim Details added/updated successfully'}});
-         
-          this.showSpinner=false;
-        },
-        error=>{
-          this.errorMsg="Oops!,Unexpected Error"
-          this.showSpinner=false;
-          this.mainNav.checkTokenExpAndLogout(error);
-        }
-      )
+    this.cableService.addNewClaim(this.registrationForm.value)
+    .subscribe(
+      response => {
+        console.log(response);
+        this.showSpinner=false;
+      },
+      error => {
+        console.log(error);
+        this.successMsg=error.error.text;
+        this.showSpinner=false;
+      }
+      );
   }
   back(){
     window.history.back();

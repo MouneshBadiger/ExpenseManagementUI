@@ -13,10 +13,11 @@ flex>
         <mat-card-content>
           <div>
               <mat-form-field>
-                  <mat-select placeholder="Type" (selectionChange)="onChannelPackChange()" [(ngModel)]="selType" #selectionTypeId="ngModel" required>
+                  <mat-select placeholder="Type" (selectionChange)="onReportChange()" [(ngModel)]="selType" #selectionTypeId="ngModel" required>
                     <mat-option  [value]="0">-select type-</mat-option>
-                    <mat-option  [value]="1">Registered Claims </mat-option>
-                    <mat-option  [value]="2">Approved Claims </mat-option>
+                    <mat-option  [value]="1">Your Pending Claims </mat-option>
+                    <mat-option  [value]="2">Your Approved Claims </mat-option>
+                    <mat-option  [value]="3">Pending for Your Approval </mat-option>
                   </mat-select>
                 </mat-form-field>
           </div>
@@ -65,8 +66,8 @@ flex>
           
               <!-- Color Column -->
               <ng-container matColumnDef="userId">
-                <th style="width: 20%" mat-header-cell *matHeaderCellDef mat-sort-header> User Name</th>
-                <td mat-cell *matCellDef="let row"> {{row.userId.userName}} </td>
+                <th style="width: 20%" mat-header-cell *matHeaderCellDef mat-sort-header> Approver</th>
+                <td mat-cell *matCellDef="let row"> {{row.approverEmail}} </td>
               </ng-container>
           
               <!-- Color Column -->

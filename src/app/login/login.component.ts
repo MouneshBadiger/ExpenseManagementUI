@@ -60,6 +60,7 @@ export class LoginComponent implements OnDestroy {
                 console.log(response.headers)
                 localStorage.setItem('access_token', response.headers.get('access_token'));
                 localStorage.setItem('username', response.body.userName);
+                this.smart_consts.changeUserName(response.body.userName);
                 localStorage.setItem("user_id",response.body.id);
                 this.router.navigate(['/claimDashboard'],{queryParams:{successMsg:'Login successfull'}});
               }else{

@@ -96,8 +96,8 @@ export function provideConfig() {
     InfiniteScrollModule
   ],
   providers: [
-    AuthGuard
-    ,{
+    AuthGuard,
+    {
     provide: AuthServiceConfig,
     useFactory: provideConfig,
     }

@@ -1,5 +1,6 @@
 
-<div class="text-danger" align="center">{{errorMsg}}</div>
+<div style="color: green">{{successMsg}}</div>
+<div style="color: red">{{errorMsg}}</div>
     <mat-card class="reg-card">
         <div class="reg-tital"><h2>Register Claim</h2></div>
       <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">

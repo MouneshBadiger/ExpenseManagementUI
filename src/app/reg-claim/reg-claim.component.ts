@@ -12,6 +12,7 @@ import { CableService } from '../_services/cable/cable.service';
 export class RegClaimComponent implements OnInit {
 
   errorMsg:string;
+  successMsg:string;
   registrationForm: FormGroup;
   subDto;
   showSpinner:boolean;
@@ -27,7 +28,7 @@ export class RegClaimComponent implements OnInit {
       approverEmail: ['',[Validators.required]],
       travelStartDate:['',[Validators.required]],
       travelEndDate:['',[Validators.required]],
-      status:[''],
+      status:['pending'],
       userId:[{id:localStorage.getItem("user_id")}]
     });
   
@@ -58,7 +59,7 @@ export class RegClaimComponent implements OnInit {
     this.cableService.registerNewClaim(this.registrationForm.value).subscribe(
         resp=>{
             this.showSpinner=false;
-            this.router.navigate(['/claimDashboard'],{queryParams:{successMsg:'Claim added/updated successfully'}});
+            this.router.navigate(['/report'],{queryParams:{successMsg:'Claim added/updated successfully'}});
         },
         error=>{
           this.errorMsg="Oops!,Unexpected Error"

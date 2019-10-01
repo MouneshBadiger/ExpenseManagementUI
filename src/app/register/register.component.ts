@@ -93,20 +93,26 @@ export class RegisterComponent implements OnInit {
       .subscribe(
         response => {
           this.showSpinner=false;
-          if(response.status==200){
+          if(response.status==201){
             localStorage.setItem('access_token', response.headers.get('access_token'));
             localStorage.setItem('username', response.body.userName);
+            this.smartConstants.changeUserName(response.body.userName);
             localStorage.setItem("user_id",response.body.id);
             this.router.navigate(['/claimDashboard'],{queryParams:{successMsg:'Registration completed successfully'}});
          
           }else{
-            this.genError=response.headers.get('message');
+            this.genError=response.headers.get('error');
           }
         },
         error =>{
           this.showSpinner=false;
           console.error('Error!', error)
-          this.genError="Oops!! That was unexpected.";
+          if(error.status==409){
+            this.genError="Email Alreay exists";
+          }else{
+            this.genError="Oops!! That was unexpected.";
+          }
+         
           this.mainNav.checkTokenExpAndLogout(error);
         }
       );
